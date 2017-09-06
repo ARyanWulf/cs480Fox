@@ -1,4 +1,6 @@
 #include "shader.h"
+#include <iostream>
+#include <fstream>
 
 Shader::Shader()
 {
@@ -35,43 +37,63 @@ bool Shader::Initialize()
 // Use this method to add shaders to the program. When finished - call finalize()
 bool Shader::AddShader(GLenum ShaderType)
 {
-  std::string s;
+  std::string s, fileName, temp;
+  bool fileOpen = false;
+  std::ifstream shader;
 
   if(ShaderType == GL_VERTEX_SHADER)
   {
-    s = "#version 330\n \
-          \
-          layout (location = 0) in vec3 v_position; \
-          layout (location = 1) in vec3 v_color; \
-          \
-          smooth out vec3 color; \
-          \
-          uniform mat4 projectionMatrix; \
-          uniform mat4 viewMatrix; \
-          uniform mat4 modelMatrix; \
-          \
-          void main(void) \
-          { \
-            vec4 v = vec4(v_position, 1.0); \
-            gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * v; \
-            color = v_color; \
-          } \
-          ";
+    while(fileOpen == false)
+    {
+      std::cout << "Enter vertex file name: ";
+      std::cin >> fileName;
+      shader.open(fileName);
+
+      if(shader.good())
+      {
+      	fileOpen = true;
+      }
+      else
+      {
+        std::cout << "File not present" << std::endl;
+      }
+    }
+    
+    while(shader.good())
+    {
+      std::getline(shader, temp);
+      s += temp;
+      s += '\n';
+    }
   }
   else if(ShaderType == GL_FRAGMENT_SHADER)
   {
-    s = "#version 330\n \
-          \
-          smooth in vec3 color; \
-          \
-          out vec4 frag_color; \
-          \
-          void main(void) \
-          { \
-             frag_color = vec4(color.rgb, 1.0); \
-          } \
-          ";
+    while(fileOpen == false)
+    {
+      std::cout << "Enter fragment file name: ";
+      std::cin >> fileName;
+      shader.open(fileName);
+
+      if(shader.good())
+      {
+      	fileOpen = true;
+      }
+      else
+      {
+        std::cout << "File not present" << std::endl;
+      }
+    }
+
+    while(shader.good())
+    {
+      std::getline(shader, temp);
+      s += temp;
+      s += '\n';
+    }
   }
+
+  shader.clear();
+  shader.close();
 
   GLuint ShaderObj = glCreateShader(ShaderType);
 

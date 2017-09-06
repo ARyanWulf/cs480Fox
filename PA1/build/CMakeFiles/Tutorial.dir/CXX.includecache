@@ -93,6 +93,10 @@ object.h
 /nfs/home/ryanfox/Documents/Projects/CS480/PA1/src/shader.cpp
 shader.h
 /nfs/home/ryanfox/Documents/Projects/CS480/PA1/src/shader.h
+iostream
+-
+fstream
+-
 
 /nfs/home/ryanfox/Documents/Projects/CS480/PA1/src/window.cpp
 window.h
