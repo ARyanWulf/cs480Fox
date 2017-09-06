@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /nfs/home/ryanfox/Documents/Projects/CS480/PA1
+CMAKE_SOURCE_DIR = /nfs/home/ryanfox/workspace/cs480Fox/PA1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /nfs/home/ryanfox/Documents/Projects/CS480/PA1/build
+CMAKE_BINARY_DIR = /nfs/home/ryanfox/workspace/cs480Fox/PA1/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/home/ryanfox/Documents/Projects/CS480/PA1/build/CMakeFiles /nfs/home/ryanfox/Documents/Projects/CS480/PA1/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/home/ryanfox/workspace/cs480Fox/PA1/build/CMakeFiles /nfs/home/ryanfox/workspace/cs480Fox/PA1/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/home/ryanfox/Documents/Projects/CS480/PA1/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/home/ryanfox/workspace/cs480Fox/PA1/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
