@@ -56,7 +56,10 @@ OpenGL 3.3 will run on the [ubuntu.cse.unr.edu](https://ubuntu.cse.unr.edu/) web
 ```
 
 ##Interaction Instructons
-The key functions are as follows
+
+The requested files are vertex.txt and fragment.txt respectively.
+
+The key functions are as follows:
 
 r - changes translation to counterclockwise
 
