@@ -110,11 +110,6 @@ void Object::Update(unsigned int dt)
     break;
   }
 
-  rotation = glm::rotate(glm::mat4(1.0f), (angle), glm::vec3(0.0, 3.0, 0.0));
-  translation = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 5.0));
-
-  model = rotation * translation;
-
   switch(rotate)
   {
   case 'T':
@@ -134,7 +129,14 @@ void Object::Update(unsigned int dt)
     break;
   }
 
-  model = glm::rotate(model, (angleR), glm::vec3(0.0, 4.0, 0.0));
+  translation = glm::translate(glm::mat4(1.0f), glm::vec3(5*sin(angle), 0.0, 5*cos(angle)));
+  rotation = glm::rotate(glm::mat4(1.0f), (angleR), glm::vec3(0.0, 3.0, 0.0));
+
+
+  model = translation * rotation;
+
+
+  //model = glm::rotate(model, (angleR), glm::vec3(0.0, 4.0, 0.0));
 }
 
 glm::mat4 Object::GetModel()

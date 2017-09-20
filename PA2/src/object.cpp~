@@ -1,7 +1,7 @@
 #include "object.h"
 
 Object::Object()
-{
+{  
   /*
     # Blender File for a Cube
     o Cube
@@ -125,7 +125,7 @@ void Object::Update(unsigned int dt)
 
   default:
     if (translate != 'F') angleR += dt *M_PI/800;
-    else if (translate != 'R') angleR += dt *M_PI/800;
+    else if (translate != 'R') angleR -= dt *M_PI/800;
     break;
   }
 
@@ -133,28 +133,10 @@ void Object::Update(unsigned int dt)
   rotation = glm::rotate(glm::mat4(1.0f), (angleR), glm::vec3(0.0, 3.0, 0.0));
 
 
-  model = translation * rotation;
-}
-
-void Object::Update(unsigned int dt, Object body)
-{
-  angle += dt *M_PI/1000;
-  angleR += dt *M_PI/500;
-  glm::mat4 m = body.GetModel();
-  glm::vec3 v = (glm::vec3(5*sin(angle), 0.0, 5*cos(angle))) + glm::vec3(m[3]);
-  glm::mat4 rotation;
-  glm::mat4 translation;
-
-  translation = glm::translate(glm::mat4(1.0f), v);
-  rotation = glm::rotate(glm::mat4(1.0f), (angleR), glm::vec3(0.0, 3.0, 0.0));
+  model = rotation * translation;
 
 
-  model = translation * rotation;
-}
-
-float Object::getAngle()
-{
-  return angle;
+  //model = glm::rotate(model, (angleR), glm::vec3(0.0, 4.0, 0.0));
 }
 
 glm::mat4 Object::GetModel()
@@ -178,3 +160,4 @@ void Object::Render()
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
 }
+

@@ -55,6 +55,8 @@ vector
 -
 graphics_headers.h
 ../include/graphics_headers.h
+math.h
+-
 
 ../include/shader.h
 vector
