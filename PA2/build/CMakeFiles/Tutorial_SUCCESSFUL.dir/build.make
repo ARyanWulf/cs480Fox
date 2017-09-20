@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /nfs/home/ryanfox/workspace/cs480Fox/PA2
+CMAKE_SOURCE_DIR = /nfs/home/ryanfox/Documents/Projects/CS480/PA2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /nfs/home/ryanfox/workspace/cs480Fox/PA2/build
+CMAKE_BINARY_DIR = /nfs/home/ryanfox/Documents/Projects/CS480/PA2/build
 
 # Utility rule file for Tutorial_SUCCESSFUL.
 
@@ -58,7 +58,7 @@ CMakeFiles/Tutorial_SUCCESSFUL: Tutorial
 	/usr/bin/cmake -E echo =====================
 	/usr/bin/cmake -E echo \ \ Compile\ complete!
 	/usr/bin/cmake -E echo =====================
-	/usr/bin/cmake -E echo /nfs/home/ryanfox/workspace/cs480Fox/PA2/build
+	/usr/bin/cmake -E echo /nfs/home/ryanfox/Documents/Projects/CS480/PA2/build
 
 Tutorial_SUCCESSFUL: CMakeFiles/Tutorial_SUCCESSFUL
 Tutorial_SUCCESSFUL: CMakeFiles/Tutorial_SUCCESSFUL.dir/build.make
@@ -75,6 +75,6 @@ CMakeFiles/Tutorial_SUCCESSFUL.dir/clean:
 .PHONY : CMakeFiles/Tutorial_SUCCESSFUL.dir/clean
 
 CMakeFiles/Tutorial_SUCCESSFUL.dir/depend:
-	cd /nfs/home/ryanfox/workspace/cs480Fox/PA2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /nfs/home/ryanfox/workspace/cs480Fox/PA2 /nfs/home/ryanfox/workspace/cs480Fox/PA2 /nfs/home/ryanfox/workspace/cs480Fox/PA2/build /nfs/home/ryanfox/workspace/cs480Fox/PA2/build /nfs/home/ryanfox/workspace/cs480Fox/PA2/build/CMakeFiles/Tutorial_SUCCESSFUL.dir/DependInfo.cmake --color=$(COLOR)
+	cd /nfs/home/ryanfox/Documents/Projects/CS480/PA2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /nfs/home/ryanfox/Documents/Projects/CS480/PA2 /nfs/home/ryanfox/Documents/Projects/CS480/PA2 /nfs/home/ryanfox/Documents/Projects/CS480/PA2/build /nfs/home/ryanfox/Documents/Projects/CS480/PA2/build /nfs/home/ryanfox/Documents/Projects/CS480/PA2/build/CMakeFiles/Tutorial_SUCCESSFUL.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Tutorial_SUCCESSFUL.dir/depend
 

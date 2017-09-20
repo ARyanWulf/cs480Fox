@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/nfs/home/ryanfox/workspace/cs480Fox/PA2/src/camera.cpp" "/nfs/home/ryanfox/workspace/cs480Fox/PA2/build/CMakeFiles/Tutorial.dir/src/camera.cpp.o"
-  "/nfs/home/ryanfox/workspace/cs480Fox/PA2/src/engine.cpp" "/nfs/home/ryanfox/workspace/cs480Fox/PA2/build/CMakeFiles/Tutorial.dir/src/engine.cpp.o"
-  "/nfs/home/ryanfox/workspace/cs480Fox/PA2/src/graphics.cpp" "/nfs/home/ryanfox/workspace/cs480Fox/PA2/build/CMakeFiles/Tutorial.dir/src/graphics.cpp.o"
-  "/nfs/home/ryanfox/workspace/cs480Fox/PA2/src/main.cpp" "/nfs/home/ryanfox/workspace/cs480Fox/PA2/build/CMakeFiles/Tutorial.dir/src/main.cpp.o"
-  "/nfs/home/ryanfox/workspace/cs480Fox/PA2/src/object.cpp" "/nfs/home/ryanfox/workspace/cs480Fox/PA2/build/CMakeFiles/Tutorial.dir/src/object.cpp.o"
-  "/nfs/home/ryanfox/workspace/cs480Fox/PA2/src/shader.cpp" "/nfs/home/ryanfox/workspace/cs480Fox/PA2/build/CMakeFiles/Tutorial.dir/src/shader.cpp.o"
-  "/nfs/home/ryanfox/workspace/cs480Fox/PA2/src/window.cpp" "/nfs/home/ryanfox/workspace/cs480Fox/PA2/build/CMakeFiles/Tutorial.dir/src/window.cpp.o"
+  "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/src/camera.cpp" "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/build/CMakeFiles/Tutorial.dir/src/camera.cpp.o"
+  "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/src/engine.cpp" "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/build/CMakeFiles/Tutorial.dir/src/engine.cpp.o"
+  "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/src/graphics.cpp" "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/build/CMakeFiles/Tutorial.dir/src/graphics.cpp.o"
+  "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/src/main.cpp" "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/build/CMakeFiles/Tutorial.dir/src/main.cpp.o"
+  "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/src/object.cpp" "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/build/CMakeFiles/Tutorial.dir/src/object.cpp.o"
+  "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/src/shader.cpp" "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/build/CMakeFiles/Tutorial.dir/src/shader.cpp.o"
+  "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/src/window.cpp" "/nfs/home/ryanfox/Documents/Projects/CS480/PA2/build/CMakeFiles/Tutorial.dir/src/window.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
