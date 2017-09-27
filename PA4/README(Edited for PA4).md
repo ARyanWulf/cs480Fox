@@ -1,4 +1,4 @@
-# PA2: Spinning Cube with Interaction
+# PA4: Model Loading
 
 # Dependencies, Building, Running, and Interaction
 
