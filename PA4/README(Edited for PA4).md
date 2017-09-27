@@ -58,7 +58,9 @@ OpenGL 3.3 will run on the [ubuntu.cse.unr.edu](https://ubuntu.cse.unr.edu/) web
 ##Implementation instructions
 
 The program will request the filepath of the obj file.
+
 There are already the Box.obj and dragon.obj files included as test cases.
+
 The requested files are vertex.txt and fragment.txt respectively.
 
 
