@@ -1,10 +1,10 @@
 #include "object.h"
+#include <string>
+#include <fstream>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/color4.h>
-#include <string>
-#include <fstream>
 
 using namespace std;
 
@@ -45,83 +45,43 @@ Object::~Object()
 
 bool Object::loadOBJ(string path)
 {
-  string temp;
-  int i_temp = 0, inside = 0;
-  bool norm = false;
-  float x = 1, y = 0, z = 0;
+  //float *vertexArray;
+  float *normalArray;
+  float *uvArray;
+  int numVerts;
   Vertex v_temp;
-  Vertex vn_temp;
 
-  ifstream fin;
-  fin.open(path);
+  Assimp::Importer importer;
 
-  if(!(fin.good()))
+  const aiScene *scene = importer.ReadFile( path, aiProcess_Triangulate );
+  aiMesh *mesh = scene->mMeshes[0];
+
+  numVerts = mesh->mNumFaces * 3;
+  
+  //vertexArray = new float[mesh->mNumFaces * 3 * 3];
+  
+  for( int i = 0 ; i < mesh->mNumFaces ; i++ )
   {
-    cout << "Object file failed to open." << endl;
-    return false;
+    const aiFace& face = mesh->mFaces[i];
+
+    for( int j = 0 ; j < 3 ; j++ )
+    {
+      aiVector3D pos = mesh->mVertices[face.mIndices[j]];
+      v_temp.vertex.x = pos.x;
+      v_temp.vertex.y = pos.y;
+      v_temp.vertex.z = pos.z;
+
+      v_temp.color.x = 1;
+      v_temp.color.y = 0;
+      v_temp.color.z = 1;
+
+      Vertices.push_back(v_temp);
+
+    }
+
   }
 
-  while(fin.good())
-  {
-    if(x == 0) x = 1;
-    else if(x == 1) x = 0;
-    if(y == 0) y = 1;
-    else if(y == 1) y = 0;
-    if(z == 0) z = 1;
-    else if(z == 1) z = 0;
-    fin >> temp;
-
-    if(temp == "v")
-    {
-	fin >> v_temp.vertex.x;
-	fin >> v_temp.vertex.y;
-	fin >> v_temp.vertex.z;
-	
-	v_temp.color.x = x;
-	v_temp.color.y = y;
-	v_temp.color.z = z;
-
-	Vertices.push_back(v_temp);
-	
-    }
-    else if(temp == "vn")
-    {
-	norm = true;
-	fin >> vn_temp.vertex.x;
-	fin >> vn_temp.vertex.y;
-	fin >> vn_temp.vertex.z;
-
-	vn_temp.color.x = x;
-	vn_temp.color.y = y;
-	vn_temp.color.z = z;
-
-	Normals.push_back(vn_temp);
-    }
-    else if(temp == "f" && norm)
-    {
-      for(int i = 0; i < 3; i++)
-      {
-	i_temp = 0;
-	inside = 0;
-        while(temp[inside] != '/')
-	{
-	   i_temp = (i_temp * 10) + (temp[inside] - '0');
-           inside++;
-	}
-	if(i_temp > 0) Indices.push_back(i_temp);
-
-      }
-    }
-    else if(temp == "f" && !norm)
-    {
-      for(int i = 0; i < 3; i++)
-      {
-	fin >> temp;
-	Indices.push_back(stoi(temp, nullptr));
-      }
-    }
-  }
-  fin.close();
+  //vertexArray -= mesh->mNumFaces * 3 * 3;
   return true;
 }
 

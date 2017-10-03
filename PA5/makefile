@@ -4,7 +4,7 @@ UNAME_S := $(shell uname -s)
 # Linux
 ifeq ($(UNAME_S), Linux)
 	CC=g++
-	LIBS=-lSDL2 -lGLEW -lGL
+	LIBS=-lSDL2 -lGLEW -lGL -lassimp
 # Mac
 else
 	CC=clang++
@@ -51,7 +51,6 @@ window.o: ../src/window.cpp
 
 clean:
 	-@if rm *.o Tutorial 2>/dev/null || true; then echo "Main Removed"; else echo "No Main"; fi
-add: -lassimp
 
 
 

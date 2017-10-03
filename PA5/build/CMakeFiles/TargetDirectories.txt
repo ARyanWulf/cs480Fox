@@ -1,4 +1,0 @@
-/nfs/home/ryanfox/Documents/Projects/CS480/PA5/build/CMakeFiles/edit_cache.dir
-/nfs/home/ryanfox/Documents/Projects/CS480/PA5/build/CMakeFiles/Tutorial_SUCCESSFUL.dir
-/nfs/home/ryanfox/Documents/Projects/CS480/PA5/build/CMakeFiles/rebuild_cache.dir
-/nfs/home/ryanfox/Documents/Projects/CS480/PA5/build/CMakeFiles/Tutorial.dir
