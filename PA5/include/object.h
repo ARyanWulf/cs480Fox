@@ -5,6 +5,10 @@
 #include "graphics_headers.h"
 #include <string>
 #include <math.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/color4.h>
 
 using namespace std;
 
@@ -19,6 +23,8 @@ class Object
     //void Update(unsigned int dt, Object body);
     bool loadOBJ(string path);
     void Render();
+    bool initScene(const aiScene* scene, string path);
+    bool initMesh(unsigned int index, const aiMesh* paiMesh);
 
     glm::mat4 GetModel();
     //float getAngle();

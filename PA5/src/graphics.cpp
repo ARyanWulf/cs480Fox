@@ -110,7 +110,7 @@ bool Graphics::Initialize(int width, int height)
 
 void Graphics::Update(unsigned int dt)
 {
-  // Update the object
+  //Update the object
   m_cube->Update(dt/2);
 }
 

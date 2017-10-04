@@ -1,10 +1,6 @@
 #include "object.h"
 #include <string>
 #include <fstream>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-#include <assimp/color4.h>
 
 using namespace std;
 
@@ -18,12 +14,6 @@ Object::Object()
 
   if(loadOBJ(fileName))
   {
-    // The index works at a 0th index
-    for(unsigned int i = 0; i < Indices.size(); i++)
-    {
-      Indices[i] = Indices[i] - 1;
-    }
-
     angle = 0.0f;
 
     glGenBuffers(1, &VB);
@@ -33,6 +23,8 @@ Object::Object()
     glGenBuffers(1, &IB);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
+
+    //model = glm::rotate(glm::mat4(1.0f), 90, glm::vec3(1.0, 0.0, 0.0));
   }
   else return;
 }
@@ -46,43 +38,69 @@ Object::~Object()
 bool Object::loadOBJ(string path)
 {
   //float *vertexArray;
-  float *normalArray;
-  float *uvArray;
-  int numVerts;
-  Vertex v_temp;
+  //float *normalArray;
+  //float *uvArray;
+  //int numVerts;
+  //Vertex v_temp;
 
   Assimp::Importer importer;
 
-  const aiScene *scene = importer.ReadFile( path, aiProcess_Triangulate );
-  aiMesh *mesh = scene->mMeshes[0];
+  const aiScene *scene = importer.ReadFile( path.c_str(), aiProcess_Triangulate );
 
-  numVerts = mesh->mNumFaces * 3;
-  
-  //vertexArray = new float[mesh->mNumFaces * 3 * 3];
-  
-  for( int i = 0 ; i < mesh->mNumFaces ; i++ )
+  if(scene)
   {
-    const aiFace& face = mesh->mFaces[i];
-
-    for( int j = 0 ; j < 3 ; j++ )
-    {
-      aiVector3D pos = mesh->mVertices[face.mIndices[j]];
-      v_temp.vertex.x = pos.x;
-      v_temp.vertex.y = pos.y;
-      v_temp.vertex.z = pos.z;
-
-      v_temp.color.x = 1;
-      v_temp.color.y = 0;
-      v_temp.color.z = 1;
-
-      Vertices.push_back(v_temp);
-
-    }
-
+	return initScene(scene, path);
   }
+  else
+  {
+	cout << "Failed to Load Object" << endl;
+	return false;
+  }
+  
 
-  //vertexArray -= mesh->mNumFaces * 3 * 3;
-  return true;
+  
+  
+}
+
+bool Object::initScene( const aiScene* scene, string path )
+{
+	
+	const aiMesh* paiMesh = scene->mMeshes[0];
+	initMesh( 0, paiMesh );
+
+	return true;
+
+}
+
+bool Object::initMesh(unsigned int index, const aiMesh* paiMesh)
+{
+	int x = 0, y = 1, z = 0;
+	const aiVector3D Zero3D( 0.0f, 0.0f, 0.0f);
+
+	for(unsigned int i = 0 ; i < paiMesh->mNumVertices ; i++ )
+	{
+		if(x == 0) x = 1;
+		else x = 0;
+		if(y == 0) y = 1;
+		else y = 0;
+		if(z == 0) z = 1;
+		else z = 0;
+		const aiVector3D* pPos = &(paiMesh->mVertices[i]);
+		//const aiVector3D* pNormal = &(paiMesh->mNormals[i]) : &Zero3D;
+		
+		Vertex v = {{pPos->x, pPos->y, pPos->z}, {x, y, z}};
+
+		Vertices.push_back(v);
+	}
+	for(unsigned int i = 0 ; i < paiMesh->mNumFaces ; i++ )
+	{
+		const aiFace& Face = paiMesh->mFaces[i];
+		assert(Face.mNumIndices == 3);
+		Indices.push_back(Face.mIndices[0]);
+		Indices.push_back(Face.mIndices[1]);
+		Indices.push_back(Face.mIndices[2]);		
+	}
+	return true;
 }
 
 void Object::setRotate(char in)
@@ -174,6 +192,7 @@ void Object::Render()
 {
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
+  glEnableVertexAttribArray(2);
 
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
@@ -185,4 +204,17 @@ void Object::Render()
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

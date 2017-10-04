@@ -51,6 +51,7 @@ window.o: ../src/window.cpp
 
 clean:
 	-@if rm *.o Tutorial 2>/dev/null || true; then echo "Main Removed"; else echo "No Main"; fi
+add: -lassimp
 
 
 
