@@ -1,4 +1,5 @@
-# PA2: Spinning Cube with Interaction
+# PA5: Assimp model loading
+#Created by Ryan Fox, Brianna Blain-Castelli, Alexander Kharag
 
 # Dependencies, Building, Running, and Interaction
 
