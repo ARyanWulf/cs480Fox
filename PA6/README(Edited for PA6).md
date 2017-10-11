@@ -1,4 +1,5 @@
 # PA6: Assimp texture loading
+Created by Ryan Fox, Brianna Blain-Castelli, and Alexander Kharag
 
 # Dependencies, Building, Running, and Interaction
 
