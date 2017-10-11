@@ -1,4 +1,5 @@
 #include "object.h"
+#include <Magick++.h>
 #include <string>
 #include <fstream>
 
@@ -11,23 +12,104 @@ Object::Object()
 
   cout << endl << "Please enter object file name: ";
   cin >> fileName;
+  cout << endl;
 
-  if(loadOBJ(fileName))
-  {
-    angle = 0.0f;
+Assimp::Importer importer;
+  std::string m_fileName;
+  GLuint m_textureObj;
+  Magick::Image* m_pImage;
+  Magick::Blob m_blob;
+	aiString Path;
+	cout << "Path: " << Path.C_Str();
+	// create and initalalize a scene that contains all of the file data
+  	const aiScene *myScene = importer.ReadFile(fileName.c_str() ,aiProcess_Triangulate);
+	cout << "Path: " << Path.C_Str();
+	// create a pointer to the first mesh (only one)
+	aiMesh *ai_mesh = myScene->mMeshes[0];  
+	cout << "Path: " << Path.C_Str();
+	// initialize magick
+        Magick::InitializeMagick(NULL);
+	cout << "Path: " << Path.C_Str();
+	// create a pointer to the first material
+	const aiMaterial* pMaterial = myScene->mMaterials[1];
+		cout << "Path: " << Path.C_Str();
+	// get texture (initialize Path)
+	pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL);
 
-    glGenBuffers(1, &VB);
-    glBindBuffer(GL_ARRAY_BUFFER, VB);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
 
-    glGenBuffers(1, &IB);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
-
-    //model = glm::rotate(glm::mat4(1.0f), 90, glm::vec3(1.0, 0.0, 0.0));
+	// load texture 
+  try {
+	  m_pImage = new Magick::Image(Path.C_Str());
+    m_pImage->write(&m_blob, "RGBA");
+	}
+  catch (Magick::Error& Error) {
+    std::cout << "Error loading texture '" << fileName << "': " << Error.what() << std::endl;
   }
-  else return;
+
+	// get vertices if number of vertices > 0
+	if (ai_mesh->mNumVertices > 0)
+	{
+		// loop through vertices
+	  for (unsigned int i = 0; i < ai_mesh->mNumVertices; i++)
+	  {
+	  	// create a 3D vector to hold vertices at ith position
+		  aiVector3D ai = ai_mesh->mVertices[i];
+		  // create a vec3 to hold the coordiates stored in ai
+		  glm::vec3 vec = glm::vec3(ai.x, ai.y, ai.z);
+			// create a 3D vector to hold texture coords
+		  aiVector3D texture = ai_mesh->mTextureCoords[0][i];
+			//create a vec2 to hold the texture coordiates stored in texture
+		  glm::vec2 tex = glm::vec2(texture.x, texture.y);
+
+		  // initialize a temporary Vertex with vertex coordinates and color
+		  Vertex *tempVertex = new Vertex(vec, tex);
+		  // push back tempVertex onto Vertices
+		  Vertices.push_back(*tempVertex);
+		}
+
+
+		// get mesh indexes
+		// loop through faces
+		for (unsigned int j = 0; j < ai_mesh->mNumFaces; j++){
+		  // create a face to store the jth face
+		  aiFace* face = &ai_mesh->mFaces[j];
+		  // if objects are not triangulated
+		  if (face->mNumIndices != 3)
+		  {   
+		    // let user know        
+		    std::cout << "Object not trianuglated\n";
+		    continue;
+		  }
+		  // push back face indices onto Indices
+		  Indices.push_back(face->mIndices[0]);
+		  Indices.push_back(face->mIndices[1]);
+		  Indices.push_back(face->mIndices[2]);
+		}
+		
+	}
+		// bind vertex buffers
+		glGenBuffers(1, &VB);
+		glBindBuffer(GL_ARRAY_BUFFER, VB);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
+
+		// bind indice buffer
+		glGenBuffers(1, &IB);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
+
+		// bind texture buffer		
+    glGenTextures(1, &m_textureObj);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_textureObj);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_pImage->columns(), m_pImage->rows(), -0.5, GL_RGBA, GL_UNSIGNED_BYTE, m_blob.data());
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_textureObj);
+
+		angle = 0.0f;
 }
+
 
 Object::~Object()
 {
@@ -35,7 +117,7 @@ Object::~Object()
   Indices.clear();
 }
 
-bool Object::loadOBJ(string path)
+bool Object::loadOBJ(string objPath, string mtlPath)
 {
   //float *vertexArray;
   //float *normalArray;
@@ -45,11 +127,11 @@ bool Object::loadOBJ(string path)
 
   Assimp::Importer importer;
 
-  const aiScene *scene = importer.ReadFile( path.c_str(), aiProcess_Triangulate );
+  const aiScene *scene = importer.ReadFile( objPath.c_str(), aiProcess_Triangulate );
 
   if(scene)
   {
-	return initScene(scene, path);
+	return initScene(scene, mtlPath);
   }
   else
   {
@@ -72,6 +154,11 @@ bool Object::initScene( const aiScene* scene, string path )
 
 }
 
+bool Object::initMaterials(const aiScene* scene, string path)
+{
+	
+}
+
 bool Object::initMesh(unsigned int index, const aiMesh* paiMesh)
 {
 	int x = 0, y = 1, z = 0;
@@ -86,9 +173,10 @@ bool Object::initMesh(unsigned int index, const aiMesh* paiMesh)
 		if(z == 0) z = 1;
 		else z = 0;
 		const aiVector3D* pPos = &(paiMesh->mVertices[i]);
+		const aiVector3D* pTexCoord = paiMesh->HasTextureCoords(0) ? &(paiMesh->mTextureCoords[0][i]): &Zero3D;
 		//const aiVector3D* pNormal = &(paiMesh->mNormals[i]) : &Zero3D;
 		
-		Vertex v = {{pPos->x, pPos->y, pPos->z}, {x, y, z}};
+		Vertex v = {{pPos->x, pPos->y, pPos->z}, {pTexCoord->x, pTexCoord->y}};
 
 		Vertices.push_back(v);
 	}

@@ -25,7 +25,7 @@
 struct Vertex
 {
   glm::vec3 vertex;
-  glm::vec3 color;
+  glm::vec2 color;
 
   Vertex& operator =(const Vertex& in)
   {
@@ -33,6 +33,8 @@ struct Vertex
     color = in.color;
     return *this;
   }
+
+ Vertex(glm::vec3 v, glm::vec2 t): vertex(v), color(t) {}
 };
 
 #endif /* GRAPHICS_HEADERS_H */

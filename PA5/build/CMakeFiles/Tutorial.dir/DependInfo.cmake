@@ -16,6 +16,8 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
+  "MAGICKCORE_HDRI_ENABLE=0"
+  "MAGICKCORE_QUANTUM_DEPTH=16"
   "UNIX"
   )
 
@@ -25,6 +27,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../assimp"
   "../include"
   "/usr/include/SDL2"
+  "/usr/include/ImageMagick-6"
+  "/usr/include/x86_64-linux-gnu/ImageMagick-6"
   )
 
 # Targets to which this target links.

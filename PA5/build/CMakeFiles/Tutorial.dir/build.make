@@ -247,6 +247,7 @@ Tutorial: CMakeFiles/Tutorial.dir/src/engine.cpp.o
 Tutorial: CMakeFiles/Tutorial.dir/src/window.cpp.o
 Tutorial: CMakeFiles/Tutorial.dir/build.make
 Tutorial: /usr/lib/x86_64-linux-gnu/libGLEW.so
+Tutorial: /usr/lib/x86_64-linux-gnu/libMagick++-6.Q16.so
 Tutorial: /usr/lib/x86_64-linux-gnu/libGLU.so
 Tutorial: /usr/lib/x86_64-linux-gnu/libGL.so
 Tutorial: /usr/lib/x86_64-linux-gnu/libSDL2main.a
