@@ -1,0 +1,31 @@
+Start Config File
+Body: Earth
+Model: model/earth_1.obj
+Orbits: none
+Rotation: 1
+**LOAD**
+Body: Moon
+Model: model/moon.obj
+Orbits: Earth
+Orbit Radius: 1.524
+Orbit Speed: 0.5313
+Rotation: 0.9732
+**LOAD**
+End Config File
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
