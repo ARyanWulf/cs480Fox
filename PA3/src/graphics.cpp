@@ -45,6 +45,7 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Create the object
+  sun = new Object();
   m_cube = new Object();
   moon = new Object();
 
@@ -111,8 +112,8 @@ bool Graphics::Initialize(int width, int height)
 void Graphics::Update(unsigned int dt)
 {
   // Update the object
-  m_cube->Update(dt/2);
-  moon->Update(dt, *m_cube);
+  m_cube->Update(dt, *sun);
+  moon->Update(2dt, *m_cube);
 }
 
 void Graphics::Render()
@@ -129,6 +130,8 @@ void Graphics::Render()
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView()));
 
   // Render the object
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(sun->GetModel()));
+  sun->Render();
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->GetModel()));
   m_cube->Render();
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(moon->GetModel()));

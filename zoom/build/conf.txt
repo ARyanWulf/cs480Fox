@@ -1,0 +1,94 @@
+Start Config File
+Body: Sun
+Model: model/sun.obj
+Orbits: none
+Rotation: 24
+**LOAD**
+Body: Mercury
+Model: model/mercury.obj
+Orbits: Sun
+Orbit Radius: 0.3871
+Orbit Speed: 4.1528
+Rotation: 0.017
+**LOAD**
+Body: Venus
+Model: model/venus.obj
+Orbits: Sun
+Orbit Radius: 0.7
+Orbit Speed: 1.6222
+Rotation: 0.0041
+**LOAD**
+Body: Earth
+Model: model/earth.obj
+Orbits: Sun
+Orbit Radius: 1
+Orbit Speed: 1
+Rotation: 1
+**LOAD**
+Body: Moon
+Model: model/moon_1.obj
+Orbits: Earth
+Orbit Radius: 0.26
+Orbit Speed: 15.185
+Rotation: 0.00031
+**LOAD**
+Body: Mars
+Model: model/mars.obj
+Orbits: Sun
+Orbit Radius: 1.524
+Orbit Speed: 0.5313
+Rotation: 0.9732
+**LOAD**
+Body: Jupiter
+Model: model/jupiter.obj
+Orbits: Sun
+Orbit Radius: 5.2
+Orbit Speed: 0.086
+Rotation: 2.4406
+**LOAD**
+Body: Saturn
+Model: model/saturn.obj
+Orbits: Sun
+Orbit Radius: 9
+Orbit Speed: 0.0339
+Rotation: 2.2522
+**LOAD**
+Body: Uranus
+Model: model/uranus.obj
+Orbits: Sun
+Orbit Radius: 20
+Orbit Speed: 0.0119
+Rotation: 1.7142
+**LOAD**
+Body: Neptune
+Model: model/neptune.obj
+Orbits: Sun
+Orbit Radius: 30.1
+Orbit Speed: 0.0061
+Rotation: 1.4898
+**LOAD**
+Body: Pluto
+Model: model/pluto.obj
+Orbits: Sun
+Orbit Radius:39.52
+Orbit Speed: 0.0040
+Rotation: 0.1565
+**LOAD**
+End Config File
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
