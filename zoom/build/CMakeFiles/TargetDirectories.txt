@@ -1,4 +1,0 @@
-/nfs/home/ryanfox/Documents/Projects/CS480/zoom/build/CMakeFiles/edit_cache.dir
-/nfs/home/ryanfox/Documents/Projects/CS480/zoom/build/CMakeFiles/Tutorial_SUCCESSFUL.dir
-/nfs/home/ryanfox/Documents/Projects/CS480/zoom/build/CMakeFiles/rebuild_cache.dir
-/nfs/home/ryanfox/Documents/Projects/CS480/zoom/build/CMakeFiles/Tutorial.dir

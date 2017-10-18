@@ -76,6 +76,7 @@ void Engine::Run()
 
 void Engine::Keyboard()
 {
+  std::string planNames[9] = {"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
   if(m_event.type == SDL_QUIT)
   {
     m_running = false;
@@ -92,29 +93,52 @@ void Engine::Keyboard()
 	if(m_graphics->getPlanCursor() > 0)
 	{
 		m_graphics->decCursor();
-		m_graphics->resetZoom(glm::vec3{0.0, 8.0, -16.0});
+                cout << m_graphics->m_planets[m_graphics->getPlanCursor()].name << " " << m_graphics->getPlanCursor() << endl;
+		if(m_graphics->m_planets[m_graphics->getPlanCursor() - 1].name != 
+"Jupiter" && m_graphics->m_planets[m_graphics->getPlanCursor() - 1].name != "Uranus" && m_graphics->m_planets[m_graphics->getPlanCursor() - 1].name != "Neptune" && m_graphics->m_planets[m_graphics->getPlanCursor() - 1].name != "Saturn"){
+			m_graphics->resetZoom(glm::vec3{0.0, 8.0, -27.0});
+		}
+		else if(m_graphics->m_planets[m_graphics->getPlanCursor()].name == 
+"Jupiter")
+		{
+			m_graphics->resetZoom(glm::vec3{0.0, 8.0, -500.0});
+		}
+		else{
+			m_graphics->resetZoom(glm::vec3{0.0, 8.0, -300.0});
+		}
 	}
         else
 	{
 		m_graphics->resetCursor(1);
-		m_graphics->resetZoom(glm::vec3{0.0, 18.0, -5000.0});
+		m_graphics->resetZoom(glm::vec3{0.0, 18.0, -500.0});
 	}
         break;
       case SDLK_RIGHT:
 	if(m_graphics->getPlanCursor() < m_graphics->getNumPlan() - 1)
 	{
 		m_graphics->incCursor();
-		m_graphics->resetZoom(glm::vec3{0.0, 8.0, -16.0});
+		if(m_graphics->m_planets[m_graphics->getPlanCursor() - 1].name != 
+"Jupiter" && m_graphics->m_planets[m_graphics->getPlanCursor() - 1].name != "Uranus" && m_graphics->m_planets[m_graphics->getPlanCursor() - 1].name != "Neptune" && m_graphics->m_planets[m_graphics->getPlanCursor() - 1].name != "Saturn" && m_graphics->m_planets[m_graphics->getPlanCursor() - 1].name != "Jupiter"){
+			m_graphics->resetZoom(glm::vec3{0.0, 8.0, -27.0});
+		}
+		else if(m_graphics->m_planets[m_graphics->getPlanCursor()].name == 
+"Jupiter")
+		{
+			m_graphics->resetZoom(glm::vec3{0.0, 8.0, -500.0});
+		}
+		else{
+			m_graphics->resetZoom(glm::vec3{0.0, 8.0, -300.0});
+		}
 	}
         else if(m_graphics->getPlanCursor() == m_graphics->getNumPlan() - 1)
 	{
 		m_graphics->incCursor();
-		m_graphics->resetZoom(glm::vec3{0.0, 18.0, -5000.0});
+		m_graphics->resetZoom(glm::vec3{0.0, 18.0, -500.0});
 	}
         else if(m_graphics->getPlanCursor() == m_graphics->getNumPlan())
 	{
 		m_graphics->resetCursor(0);
-		m_graphics->resetZoom(glm::vec3{0.0, 8.0, -16.0});
+		m_graphics->resetZoom(glm::vec3{0.0, 8.0, -27.0});
 	}
         break;
     }

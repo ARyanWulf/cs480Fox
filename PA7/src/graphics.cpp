@@ -58,10 +58,10 @@ bool Graphics::Initialize(int width, int height)
   // Variable declaration
   string fileName, hold, holdHead, holdData;
   string name, model, orbits;
-  double temp, tempDecimal, radius, speed, rotation;
+  double long temp, tempDecimal, radius, speed, rotation;
   int i, dec;
   ifstream config;
-  Object *m_model;
+  Object *temp_model, m_model;
 
   // For OpenGL 3
   GLuint vao;
@@ -91,14 +91,12 @@ bool Graphics::Initialize(int width, int height)
       while(hold != "End Config File")
       {
         getline(config, hold);
-        cout << hold << endl;
 
         // gets data header
         holdHead = hold.substr(0, hold.find(":") + 1);
 
         // gets data
         holdData = hold.substr(hold.find(":") + 2, hold.size() - 1);
-        cout << holdHead << " " << holdData << endl;
         if(holdHead == "Body:")
         {
           name = holdData;
@@ -106,12 +104,15 @@ bool Graphics::Initialize(int width, int height)
 	else if(holdHead == "Model:")
 	{
           model = holdData;
-          m_model = new Object(model);
-          m_model->name = name;
+          temp_model = new Object(model);
+          temp_model->name = name;
+
+          m_model = *temp_model;
+ 
 	}
 	else if(holdHead == "Orbits:")
 	{
-         m_model->orbits = holdData;
+         m_model.orbits = holdData;
 	}
 	else if(holdHead == "Orbit Radius:")
 	{
@@ -137,11 +138,11 @@ bool Graphics::Initialize(int width, int height)
 	    {
 	      tempDecimal /= 10;
 	    }
-	    m_model->radius = temp + tempDecimal;
+	    m_model.radius = temp + tempDecimal;
 	  }
 	  else 
 	  {
-	    m_model->radius = temp;
+	    m_model.radius = temp;
 	  }
 	}
 	else if(holdHead == "Orbit Speed:")
@@ -168,11 +169,11 @@ bool Graphics::Initialize(int width, int height)
 	    {
 	      tempDecimal /= 10;
 	    }
-	    m_model->speed = temp + tempDecimal;
+	    m_model.speed = temp + tempDecimal;
 	  }
 	  else 
 	  {
-	    m_model->speed = temp;
+	    m_model.speed = temp;
 	  }
 	}
 	else if(holdHead == "Rotation:")
@@ -199,16 +200,15 @@ bool Graphics::Initialize(int width, int height)
 	    {
 	      tempDecimal /= 10;
 	    }
-	    m_model->radius = temp + tempDecimal;
+	    m_model.rotation = temp + tempDecimal;
 	  }
-	  else m_model->radius = temp;
+	  else m_model.rotation = temp;
         }
 	else if(hold == "**LOAD**")
 	{
-          cout << m_model->name << endl;
-		cout << m_model->orbits << endl;
-	  m_planets.push_back(*m_model);
-          delete m_model;
+	  m_planets.push_back(m_model);
+          
+          delete temp_model;
 	}
       }
     }
@@ -280,12 +280,10 @@ bool Graphics::Initialize(int width, int height)
 
 void Graphics::Update(unsigned int dt)
 {
-  std::string planNames[9] = {"Mercury", "Venus", "Earth", "Mars", "Juptier", "Saturn", "Uranus", "Neptune", "Pluto"}; planetCursor = numPlan;
-  cout << "update " << m_planets.size() << endl;
+  std::string planNames[9] = {"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
 
   for(int i = 0; i < m_planets.size(); i++)
   {
-	cout << m_planets[i].name << " orbit is " << m_planets[i].speed << endl;
     if(m_planets[i].orbits != "none") //if not sun
     {
       for(int k = 0; k < m_planets.size(); k++)
@@ -332,7 +330,6 @@ void Graphics::Render()
   {
     glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_planets[i].GetModel()));
     m_planets[i].Render();
-    cout << m_planets[i].name << "render" << endl;
   }
 
   // Get any errors from OpenGL

@@ -6,6 +6,10 @@ using namespace std;
 
 GLint location;
 
+Object::Object()
+{
+}
+
 Object::Object(string fileName)
 {
   Magick::InitializeMagick(NULL);
@@ -40,21 +44,23 @@ Object::Object(string fileName)
 
 Object::Object(const Object& in)
 {
-  name = in.name;
-  orbits = in.orbits;
-  speed = in.speed;
-  rotation = in.rotation;
-  model = in.model;
-  Vertices = in.Vertices;
-  Indices = in.Indices;
-  VB = in.VB;
-  IB = in.IB;
-  aTexture = in.aTexture;
-  m_pImage = in.m_pImage;
-  m_blob = in.m_blob;
-  angle = in.angle;
-  keypressT = in.keypressT;
-  keypressR = in.keypressR;
+   name = in.name;
+   orbits = in.orbits;
+   radius = in.radius;
+   speed = in.speed;
+   rotation = in.rotation;
+   model = in.model;
+   Vertices = in.Vertices;
+   Indices = in.Indices;
+   VB = in.VB;
+   IB = in.IB;
+   aTexture = in.aTexture;
+   m_pImage = in.m_pImage;
+   m_blob = in.m_blob;
+   angle = in.angle;
+   angleRotate = in.angleRotate;
+   keypressT = in.keypressT;
+   keypressR = in.keypressR;
 }
 
 Object::~Object()
@@ -189,8 +195,7 @@ void Object::Update(unsigned int dt)
       		angleRotate -= dt * M_PI/5000;
       		break;
   }
-
-
+  model = glm::scale(glm::mat4(1.0f), glm::vec3(1, 10, 1));
   model = glm::rotate(glm::mat4(1.0f), (angleRotate), glm::vec3(0.0f, 1.0f, 0.0f));
 }
  
@@ -198,16 +203,16 @@ void Object::Update(unsigned int dt)
 void Object::Update(unsigned int dt, Object orbit)
 { 
   cout << name << "update" << endl;
-  if(orbit.orbits == "Sun")
+  if(orbit.name == "Sun")
   {
   	//Move in Circle
   	switch(keypressT)
   	{
-   		 case 'f': //Forward
-     			 angle += dt * M_PI/1000;
+   		case 'f': //Forward
+     			 angle += dt * M_PI/10000;
      			 break;
    		case 'b': //Backward
-      			angle -= dt * M_PI/1000;
+      			angle -= dt * M_PI/10000;
       			break;
     		case 's': //Stop
       		//Do not update
@@ -215,7 +220,8 @@ void Object::Update(unsigned int dt, Object orbit)
   	}
 
   //Rotate
-  	switch(keypressR){
+  	switch(keypressR)
+        {
     		case 'r': //Rotate
       			if( keypressT == 'b' ) //Would otherwise cancel out r
       			{
@@ -235,14 +241,21 @@ void Object::Update(unsigned int dt, Object orbit)
      	 		break;
   	}
   }
-  else{
-  	angle += dt * M_PI/1000;
+  else
+  {
+  	angle += dt * M_PI/10000;
  	angleRotate += dt * M_PI/750;
   }
+
+  cout << radius << endl;
+  glm::mat4 m = orbit.GetModel();
+
   
-  glm::mat4 translatemodel = glm::translate(orbit.GetModel(), glm::vec3(100*sin(angle), 0.0, 100*cos(angle)));
-  glm::mat4 rotatemodel = glm::rotate(glm::mat4(1.0f), (angleRotate), glm::vec3(0.0, rotation*1.0, 0.0));
-  model = translatemodel * rotatemodel;
+  cout << "r: " << radius << "angle: " << 100*sin(angle) << endl;
+  glm::vec3 v = (glm::vec3( 200*radius*sin(angle*speed), 0.0, 200*radius * cos(angle*speed))) + glm::vec3(m[3]);
+ 
+  model = glm::translate(glm::mat4(1.0f), v);
+  model = glm::rotate(model, (angleRotate * (float)rotation), glm::vec3(0.0, 1.0, 0.0));
 }
 
 
@@ -271,4 +284,24 @@ void Object::Render()
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

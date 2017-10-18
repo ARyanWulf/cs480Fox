@@ -28,6 +28,7 @@ class Graphics
     void zoomIn(int factor);
     void zoomOut(int factor);
     void resetZoom(glm::vec3 newV);
+    friend class Engine;
 
   private:
     std::string ErrorString(GLenum error);
