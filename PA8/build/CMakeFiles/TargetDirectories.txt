@@ -1,0 +1,4 @@
+/nfs/home/ryanfox/workspace/cs480Fox/temp/build/CMakeFiles/edit_cache.dir
+/nfs/home/ryanfox/workspace/cs480Fox/temp/build/CMakeFiles/Tutorial_SUCCESSFUL.dir
+/nfs/home/ryanfox/workspace/cs480Fox/temp/build/CMakeFiles/rebuild_cache.dir
+/nfs/home/ryanfox/workspace/cs480Fox/temp/build/CMakeFiles/Tutorial.dir

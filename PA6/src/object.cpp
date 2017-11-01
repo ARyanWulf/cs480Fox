@@ -8,6 +8,7 @@ GLint location;
 
 Object::Object()
 {
+  objTriMesh = new btTriangleMesh();
   Magick::InitializeMagick(NULL);
   string fileName;
   string mtlFile;
@@ -41,6 +42,7 @@ Object::Object()
 
     //model = glm::rotate(glm::mat4(1.0f), 90, glm::vec3(1.0, 0.0, 0.0));
   }
+  shape = new btBvhTriangleMeshShape(objTriMesh, true)
   else return;
 }
 
@@ -92,6 +94,7 @@ bool Object::initScene( const aiScene* scene, string path)
 
 bool Object::initMesh(unsigned int index, const aiMesh* paiMesh)
 {
+        btVector3 triArray[3];
 	const aiVector3D Zero3D( 0.0f, 0.0f, 0.0f);
 	vector<Vertex> tempV;
 
@@ -101,7 +104,7 @@ bool Object::initMesh(unsigned int index, const aiMesh* paiMesh)
 		const aiVector3D* luv = paiMesh->HasTextureCoords(0) ? &(paiMesh->mTextureCoords[0][i]): &Zero3D;
 
 		Vertex v = {{pPos->x, pPos->y, pPos->z}, {luv->x, luv->y}};
-
+                
 		Vertices.push_back(v);
 	}
 	for(unsigned int i = 0 ; i < paiMesh->mNumFaces ; i++ )
@@ -111,6 +114,14 @@ bool Object::initMesh(unsigned int index, const aiMesh* paiMesh)
 		Indices.push_back(Face.mIndices[0]);
 		Indices.push_back(Face.mIndices[1]);
 		Indices.push_back(Face.mIndices[2]);
+		bodies.push_back(Face.mIndices[0], Face.mIndices[1], Face.mIndices[2]);
+	}
+	for(unsigned int i = 0; i < Vertices.size(); i += 3)
+	{
+		triArray[0] = btVector3(Vertices[i].vertex.x, Vertices[i].vertex.y, Vertices[i].vertex.z);
+		triArray[1] = btVector3(Vertices[i+1].vertex.x, Vertices[i+1].vertex.y, Vertices[i+1].vertex.z);
+		triArray[2] = btVector3(Vertices[i+2].vertex.x, Vertices[i+2].vertex.y, Vertices[i+2].vertex.z);
+		objTriMesh->addTriangle(triArray[0], triArray[1], triArray[2]);
 	}
 	return true;
 }

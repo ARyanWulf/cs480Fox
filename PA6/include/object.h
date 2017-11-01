@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "graphics_headers.h"
+#include "Physics.h"
 #include <string>
 #include <math.h>
 #include <assimp/Importer.hpp>
@@ -10,6 +11,7 @@
 #include <assimp/postprocess.h>
 #include <assimp/color4.h>
 #include <Magick++.h>
+#include <btBulletDynamicsCommon.h>
 
 using namespace std;
 
@@ -42,9 +44,10 @@ class Object
     Magick::Image* m_pImage;
     Magick::Blob m_blob;
 
-    float angle, angleR;
-    unsigned char rotate, translate;
-
+    btTriangleMesh *objTriMesh;
+    vector<btRigidBody> bodies;
+    btCollisionShape* shape;
+    Physics *world;
 };
 
 #endif /* OBJECT_H */
