@@ -96,9 +96,13 @@ bool Object::initMesh(unsigned int index, const aiMesh* paiMesh)
 	for(unsigned int i = 0 ; i < paiMesh->mNumVertices ; i++ )
 	{
 		const aiVector3D* pPos = &(paiMesh->mVertices[i]);
+		const aiVector3D* pNormal = &(paiMesh->mNormals[i]);
 		const aiVector3D* luv = paiMesh->HasTextureCoords(0) ? &(paiMesh->mTextureCoords[0][i]): &Zero3D;
 
-		Vertex v = {{pPos->x, pPos->y, pPos->z}, {luv->x, luv->y}};
+		Vertex v = {{pPos->x, pPos->y, pPos->z}, 
+			    {luv->x, luv->y},
+		/*Normals.push_back(vec3(*/{pNormal->x, pNormal->y, pNormal->z}};
+		cout << pNormal->x << pNormal->y << pNormal->z << endl;
                 
 		Vertices.push_back(v);
 	}

@@ -1,0 +1,59 @@
+#version 330
+  smooth in vec2 TexCoord0;
+
+  out vec4 gl_FragColor;
+  uniform sampler2D sampler;
+
+
+  //Passing In values from Vertex Shader
+  in vec3 fN;//Normal Vector
+  in vec3 fL;//Light Vector
+  in vec3 fE;//View Vector
+  in vec4 fS;//SpotlightPosition
+  in vec3 fSL;//SpotlightPosition - pos
+
+  uniform float ShininessAmbient;
+  uniform float ShininessSpec;
+  uniform vec4 AmbientProduct, DiffuseProduct, SpecularProduct;
+
+
+  void main(void)
+  {
+    vec4 S = fS;
+    //Normalize the input lighting vectors
+
+    vec3 N = normalize(fN);
+    vec3 E = normalize(fE);
+    vec3 L = normalize(fL);
+    vec3 H = normalize(L+E);
+    vec3 LS = normalize(fSL);
+    vec3 HS = normalize(LS+E);
+
+
+
+    AmbientProduct = vec4(ShininessAmbient, ShininessAmbient, ShininessAmbient, 1.0);
+
+    float Kd = max(dot(L,N), 0.0);
+
+    vec4 diffuse = Kd*DiffuseProduct;
+    float Ks = pow(max(dot(N,H),0.0), ShininessSpec);
+
+    vec4 specular = Ks*(SpecularProduct* cos(Kd));
+    //discard the specular highlight if the light's behind the Vertex
+    if(dot(L,N)<0.0) specular = vec4(0.0,0.0,0.0,1.0);
+
+    float KsS = pow(max(dot(N,HS), 0.0), ShininessSpec);
+
+    float KdS = max(dot(LS,N), 0.0);
+
+    vec4 diffuseS = KdS * DiffuseProduct;
+
+    vec4 specularS = KsS * SpecularProduct * cos(KdS);
+
+    if(dot(LS,N) < 0.0) specularS = vec4(0.0, 0.0, 0.0, 1.0);
+
+    vec4 lightColor = ambient + (diffuseS*diffuse) + (specularS*specular);
+    lightColor.a = 1.0;
+    gl_FragColor = lightColor*texture2D(sampler, TexCoord0.st);
+
+  }

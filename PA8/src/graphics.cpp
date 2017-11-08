@@ -60,20 +60,20 @@ bool Graphics::Initialize(int width, int height)
 
   //gContactAddedCallback = world->callBack;
   
-  Object *ball = new Object("obj/ball.obj");
-  Object *board = new Object("obj/pinboard.obj"); 
+  Object *ball = new Object("ball.obj");
+  //Object *board = new Object("obj/pinboard.obj"); 
   //Object *cyl = new Object("obj/cyl.obj");
-  Object *paddle = new Object("obj/cube.obj");
+  //Object *paddle = new Object("obj/cube.obj");
   objects.push_back(ball);
   //objects.push_back(cyl);
-  objects.push_back(paddle);
-  objects.push_back(board);
+  //objects.push_back(paddle);
+  //objects.push_back(board);
 
   
   world->addObject(1,  0, 0, 2, 0, COL_BALL, ballCollidesWith, objects[0]->objTriMesh, btVector3(0, 0, 0), false);
   //world->addObject(1,  0, 1, 0, COL_CYL, cylCollidesWith, objects[1]->objTriMesh, btVector3(0, 0, 0), true);
-  world->addObject(1,  1, 0, 5, 0, COL_PAD, paddleCollidesWith, objects[1]->objTriMesh, btVector3(0, 0, 0), true);
-  world->addObject(0,  2, 0, 0, 0, COL_BOARD, boardCollidesWith, objects[2]->objTriMesh, btVector3(0, 0, 0), false); 
+  //world->addObject(1,  1, 0, 5, 0, COL_PAD, paddleCollidesWith, objects[1]->objTriMesh, btVector3(0, 0, 0), true);
+  //world->addObject(0,  2, 0, 0, 0, COL_BOARD, boardCollidesWith, objects[2]->objTriMesh, btVector3(0, 0, 0), false); 
 
   // Set up the shaders
   m_shader = new Shader();

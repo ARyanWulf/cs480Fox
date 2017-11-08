@@ -1,0 +1,39 @@
+#version 330
+
+          layout (location = 0) in vec3 v_position;
+          layout (location = 1) in vec2 TexCoord;
+
+          smooth out vec2 TexCoord0;
+          out vec4 lightColor;
+
+          uniform mat4 projectionMatrix;
+          uniform mat4 viewMatrix;
+          uniform mat4 modelMatrix;
+          uniform vec4 LightPosition;
+          uniform float Shininess
+          uniform vec4 AmbientProduct, DiffuseProduct, SpecularProduct;
+
+
+          void main(void)
+          {
+            vec3 pos = (modelMatrix * viewMatrix * v_position).xyz;
+            vec3 L = normalize(LightPosition.xyz - pos);
+            vec3 E = normalize(-pos);
+            vec3 H = normalize(L+E);
+
+            vec3 N = normalize(modelMatrix * viewMatrix * vec4(vNormal, 0.0)).xyz;
+
+            vec4 ambient = AmbientProduct;
+
+            float Kd = max(dot(L,N), 0.0);
+            vec4 diffuse = Kd * DiffuseProduct;
+            float Ks = pow(max(dot(N,H), 0.0), Shininess);
+            vec4 specular = Ks * SpecularProduct;
+            if(dot(L,N) < 0.0) specular = vec4(0.0, 0.0, 0.0, 1.0);
+
+            gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * v;
+            TexCoord0 = TexCoord;
+
+            lightColor = ambient + diffuse + specular;
+            lightColor.a = 1.0;
+          }
