@@ -70,37 +70,37 @@ SDL2/SDL.h
 string
 -
 
-/home/fox/workspace/cs480Fox/PA3/src/camera.cpp
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/camera.cpp
 camera.h
-/home/fox/workspace/cs480Fox/PA3/src/camera.h
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/camera.h
 
-/home/fox/workspace/cs480Fox/PA3/src/engine.cpp
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/engine.cpp
 engine.h
-/home/fox/workspace/cs480Fox/PA3/src/engine.h
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/engine.h
 
-/home/fox/workspace/cs480Fox/PA3/src/graphics.cpp
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/graphics.cpp
 graphics.h
-/home/fox/workspace/cs480Fox/PA3/src/graphics.h
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/graphics.h
 
-/home/fox/workspace/cs480Fox/PA3/src/main.cpp
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/main.cpp
 iostream
 -
 engine.h
-/home/fox/workspace/cs480Fox/PA3/src/engine.h
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/engine.h
 
-/home/fox/workspace/cs480Fox/PA3/src/object.cpp
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/object.cpp
 object.h
-/home/fox/workspace/cs480Fox/PA3/src/object.h
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/object.h
 
-/home/fox/workspace/cs480Fox/PA3/src/shader.cpp
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/shader.cpp
 shader.h
-/home/fox/workspace/cs480Fox/PA3/src/shader.h
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/shader.h
 iostream
 -
 fstream
 -
 
-/home/fox/workspace/cs480Fox/PA3/src/window.cpp
+/nfs/home/ryanfox/workspace/cs480Fox/PA3/src/window.cpp
 window.h
 -
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/fox/workspace/cs480Fox/PA3
+# Install script for directory: /nfs/home/ryanfox/workspace/cs480Fox/PA3
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/fox/workspace/cs480Fox/PA3/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/nfs/home/ryanfox/workspace/cs480Fox/PA3/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
